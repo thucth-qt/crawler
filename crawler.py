@@ -1,8 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager #for install chrome driver
-from xvfbwrapper import Xvfb  # or use PyVirtualDisplay instead
+from pyvirtualdisplay import Display  #for use virtual view windows
 import time
+
+
 
 
 def intialize_crawler(isDisplay, targetUrl):
@@ -12,10 +14,9 @@ def intialize_crawler(isDisplay, targetUrl):
     chrome_options.add_argument("--window-size=1920x1080")
 
     # start chrome
-    display = None
-    if isDisplay == False :
-        display = Xvfb()
-        display.start()
+
+    display = Display(visible=isDisplay, size=(800, 600))
+    display.start()
     driver = webdriver.Chrome(
         chrome_options=chrome_options, executable_path=ChromeDriverManager().install()
     )
@@ -40,7 +41,7 @@ def login_with_GAcount(driver):
 
     driver.switch_to_window(window_after)
     # enter credentials
-    credentials = open("pw.txt", "r")
+    credentials = open("./.pw.txt", "r")
 
     input = driver.find_element_by_id("identifierId")
     username = credentials.readline().strip()
@@ -129,7 +130,7 @@ def crawl(job, area, result, driver):
 if __name__ == "__main__":
     #enter informations for crawling data
     targetUrl="https://itviec.com/"
-    isDisplay=True
+    isDisplay=False
     job ="golang"
     locations = {0:"All Cities", 1:"Ha Noi", 2:"Ho Chi Minh", 3:"Da Nang", 4:"Others"}
     city = locations[0]
@@ -149,6 +150,5 @@ if __name__ == "__main__":
     time.sleep(1)
     driver.close()
     driver.quit()
-    if display is not None:
-        display.stop()
+    if isDisplay: display.stop()
 

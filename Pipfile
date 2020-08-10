@@ -9,7 +9,7 @@ pylint = "*"
 [packages]
 webdriver-manager = "*"
 selenium = "*"
-xvfbwrapper = "*"
+pyvirtualdisplay = "*"
 
 [requires]
 python_version = "3.7"
