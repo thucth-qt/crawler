@@ -1,4 +1,6 @@
 # setup
+## 0. install xvfb for excute virtual frameebuffer: a virtual windows like chrome windows
+sudo apt install xvfb
 ## 1. install pipenv
 pip3 install pipenv
 
